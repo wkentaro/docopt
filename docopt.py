@@ -452,9 +452,11 @@ def parse_argv(tokens, options, options_first=False):
     return parsed
 
 
-def parse_defaults(doc):
+def parse_defaults(doc, section_name=None):
+    if section_name is None:
+        section_name = 'options:'
     defaults = []
-    for s in parse_section('options:', doc):
+    for s in parse_section(section_name, doc):
         # FIXME corner case "bla: options: --foo"
         _, _, s = s.partition(':')  # get rid of "options:"
         split = re.split('\n[ \t]*(-\S+?)', '\n' + s)[1:]
